@@ -1,0 +1,2 @@
+Separar effects en funciones ajenas a react 
+Crear effect que triggerea todo de nuevo cuando se alcanza el punto muerto

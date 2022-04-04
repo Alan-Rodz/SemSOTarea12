@@ -60,7 +60,34 @@ const Home: NextPage = () => {
     }, VELOCIDAD);
 
     return () => clearInterval(interval);
-  }, [isProduciendo, producerSleep]);
+  }, [producerSleep, isProduciendo]);
+
+
+  useEffect(() => { // Effect Consumidor
+    if(isConsumiendo) { return/*consumidor consumiendo*/; }
+
+    const interval = setInterval(()=>{
+      if(consumerSleep > 0) { setConsumerSleep(consumerSleep => consumerSleep--); return/*productor durmiendo*/; }
+
+      if(isConsumiendo === false) {
+        setIsConsumiendo(true);
+        const consume$ = crearObservable(aleatorio());
+        consume$.subscribe({
+            next: (val => {
+              console.log(val)
+              // contenedor.consumir();
+              // const nuevoContenedorMostrado = contenedor.copiar();
+              // setContenedorMostrado(nuevoContenedorMostrado);
+            }),
+  //           error: undefined,
+  //           complete: () => { setIsConsumiendo(false); setConsumerSleep(aleatorio()); }
+          });
+      }
+
+    }, VELOCIDAD);
+
+    return () => clearInterval(interval);
+  }, [consumerSleep, isConsumiendo]);
 
   return (
     <Grid h={'100vh'} templateRows={'repeat(10, 1fr)'} templateColumns={'repeat(10, 1fr)'} backgroundColor={GLOBAL_BG_GAP_COLOR} >
