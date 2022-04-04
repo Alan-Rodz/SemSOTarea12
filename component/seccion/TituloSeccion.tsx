@@ -11,14 +11,15 @@ export const TituloSeccion: React.FC<TituloSeccionProps> = ({ nombreSeccion }) =
   return (
     <>
       <Box
-        transform='translateX(-50%)'
-        top='0'
-        left='50%'
+        transform={'translateX(-50%)'}
+        top={'0'}
+        left={'50%'}
         position={'absolute'}
         bg={GLOBAL_SECONDARY_COLOR}
         borderRadius={GLOBAL_BORDER_RADIUS}
         padding={3}
         fontSize={15}
+        color={'white'}
       >
         {nombreSeccion}
       </Box>

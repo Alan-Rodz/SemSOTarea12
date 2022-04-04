@@ -11,9 +11,11 @@ import { SeccionContenedor } from '../component/seccion/SeccionContenedor';
 
 
 // *****************************************************************************************************************************
-export const GLOBAL_COLOR = '#ade8f4';
-export const GLOBAL_SECONDARY_COLOR = '#48cae4';
-export const GLOBAL_BORDER_RADIUS = 15;
+export const GLOBAL_COLOR = '#ff8fa3';
+export const GLOBAL_SECONDARY_COLOR = '#c9184a';
+export const GLOBAL_BG_GAP_COLOR = 'white';
+export const GLOBAL_BORDER_RADIUS = 5;
+
 
 // === App =====================================================================================================================
 const Home: NextPage = () => {
@@ -25,7 +27,7 @@ const Home: NextPage = () => {
   // --- Callbacks --------------------------------------------------------------------------------------
 
   return (
-    <Grid h='100vh' templateRows='repeat(10, 1fr)' templateColumns='repeat(10, 1fr)' gap={1} backgroundColor={'black'} >
+    <Grid h={'100vh'} templateRows={'repeat(10, 1fr)'} templateColumns={'repeat(10, 1fr)'} backgroundColor={GLOBAL_BG_GAP_COLOR} >
       {/* === Estado General ============================================================================================================== */}
       <GridItem
         overflowX={'scroll'}
