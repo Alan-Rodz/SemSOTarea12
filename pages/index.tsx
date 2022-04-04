@@ -14,6 +14,7 @@ import { SeccionContenedor } from '../component/seccion/SeccionContenedor';
 export const GLOBAL_COLOR = '#ff8fa3';
 export const GLOBAL_SECONDARY_COLOR = '#c9184a';
 export const GLOBAL_BG_GAP_COLOR = 'white';
+export const GLOBAL_CONTENT_COLOR = '#ffccd5';
 export const GLOBAL_BORDER_RADIUS = 5;
 
 
