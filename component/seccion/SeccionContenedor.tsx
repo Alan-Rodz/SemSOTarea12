@@ -1,8 +1,12 @@
 import { Box, Flex } from '@chakra-ui/react';
-import { GLOBAL_SECONDARY_COLOR, GLOBAL_BORDER_RADIUS } from '../../pages';
+
+import { Contenedor } from '../../class/Contenedor';
+import { GLOBAL_SECONDARY_COLOR, GLOBAL_BORDER_RADIUS, contenedor } from '../../pages';
 
 // ********************************************************************************
-export interface SeccionContenedorProps { };
+export interface SeccionContenedorProps { 
+  contenedor: Contenedor<number>
+};
 
 export const SeccionContenedor: React.FC<SeccionContenedorProps> = () => {
   return (
@@ -21,7 +25,9 @@ export const SeccionContenedor: React.FC<SeccionContenedorProps> = () => {
         Contenedor
       </Box>
       <Flex flexDir={'column'}>
-
+        {contenedor.arreglo.map((entrada, index) => (
+          <Box key={index}>{JSON.stringify(entrada)}</Box>
+        ))}
       </Flex>
     </Box>
   )

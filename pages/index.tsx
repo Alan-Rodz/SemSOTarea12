@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Box, Grid, GridItem, useDisclosure } from '@chakra-ui/react';
-import { Observable } from 'rxjs'
+import React, { useEffect, useState } from 'react';
+import { Grid, GridItem } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 
 import { ContenedorSeccion } from '../component/seccion/ContenedorSeccion';
@@ -8,7 +7,9 @@ import { SeccionEstadoGeneral } from '../component/seccion/SeccionEstadoGeneral'
 import { SeccionProductor } from '../component/seccion/SeccionProductor';
 import { SeccionConsumidor } from '../component/seccion/SeccionConsumidor';
 import { SeccionContenedor } from '../component/seccion/SeccionContenedor';
-
+import { Contenedor } from '../class/Contenedor';
+import { crearObservable } from '../class/Observar';
+import { aleatorio } from '../util/aleatorio';
 
 // *****************************************************************************************************************************
 export const GLOBAL_COLOR = '#ff8fa3';
@@ -17,15 +18,49 @@ export const GLOBAL_BG_GAP_COLOR = 'white';
 export const GLOBAL_CONTENT_COLOR = '#ffccd5';
 export const GLOBAL_BORDER_RADIUS = 5;
 export const FONT_SIZE = 16;
+export const VELOCIDAD = 1000/*ms*/;
+
 
 // === App =====================================================================================================================
+export const contenedor = new Contenedor<number>(20);
+
 const Home: NextPage = () => {
+  // --- State --------------------------------------------------------------------
+  const [contenedorMostrado, setContenedorMostrado] = useState<Contenedor<number>>(contenedor);
 
-  // --- State ------------------------------------------------------------------------------------
+  const [isProduciendo, setIsProduciendo] = useState<boolean>(false);
+  const [isConsumiendo, setIsConsumiendo] = useState<boolean>(false);
 
-  // --- Handlers --------------------------------------------------------------------------------------
+  const [producerSleep, setProducerSleep] = useState<number>(0);
+  const [consumerSleep, setConsumerSleep] = useState<number>(0);
 
-  // --- Callbacks --------------------------------------------------------------------------------------
+  // --- Handlers -----------------------------------------------------------------
+
+  // --- Effects ------------------------------------------------------------------
+  useEffect(() => { // Effect Productor
+    if(isProduciendo) { return/*productor produciendo*/; }
+
+    const interval = setInterval(()=>{
+      if(producerSleep > 0) { setProducerSleep(producerSleep => producerSleep--); return/*productor durmiendo*/; }
+
+      if(isProduciendo === false) {
+        setIsProduciendo(true);
+        const prod$ = crearObservable(aleatorio());
+        prod$.subscribe({
+            next: (val => {
+              contenedor.agregar(val);
+              const nuevoContenedorMostrado = contenedor.copiar();
+              setContenedorMostrado(nuevoContenedorMostrado);
+            }),
+            error: undefined,
+            complete: () => { setIsProduciendo(false); setProducerSleep(aleatorio()); }
+          });
+      }
+
+    }, VELOCIDAD);
+
+    return () => clearInterval(interval);
+  }, [isProduciendo, producerSleep]);
 
   return (
     <Grid h={'100vh'} templateRows={'repeat(10, 1fr)'} templateColumns={'repeat(10, 1fr)'} backgroundColor={GLOBAL_BG_GAP_COLOR} >
@@ -38,9 +73,9 @@ const Home: NextPage = () => {
         colSpan={5}
         bg={GLOBAL_COLOR}
         borderRadius={GLOBAL_BORDER_RADIUS}>
-          <ContenedorSeccion>
-            <SeccionEstadoGeneral />
-          </ContenedorSeccion>
+        <ContenedorSeccion>
+          <SeccionEstadoGeneral />
+        </ContenedorSeccion>
       </GridItem>
 
       {/* === Productor =================================================================================================================== */}
@@ -53,9 +88,9 @@ const Home: NextPage = () => {
         colSpan={5}
         bg={GLOBAL_COLOR}
         borderRadius={GLOBAL_BORDER_RADIUS}>
-          <ContenedorSeccion>
-            <SeccionProductor />
-          </ContenedorSeccion>
+        <ContenedorSeccion>
+          <SeccionProductor />
+        </ContenedorSeccion>
       </GridItem>
 
       {/* === Consumidor ================================================================================================================== */}
@@ -68,9 +103,9 @@ const Home: NextPage = () => {
         colSpan={5}
         bg={GLOBAL_COLOR}
         borderRadius={GLOBAL_BORDER_RADIUS}>
-          <ContenedorSeccion>
-            <SeccionConsumidor />
-          </ContenedorSeccion>
+        <ContenedorSeccion>
+          <SeccionConsumidor />
+        </ContenedorSeccion>
       </GridItem>
 
       {/* === Contenedor ================================================================================================================== */}
@@ -83,12 +118,12 @@ const Home: NextPage = () => {
         colSpan={5}
         bg={GLOBAL_COLOR}
         borderRadius={GLOBAL_BORDER_RADIUS}>
-          <ContenedorSeccion>
-            <SeccionContenedor />
-          </ContenedorSeccion>
+        <ContenedorSeccion>
+          <SeccionContenedor contenedor={contenedor} />
+        </ContenedorSeccion>
       </GridItem>
     </Grid>
-    );
+  );
 }
 
 export default Home;
