@@ -1,10 +1,9 @@
 import { Box, Center, Flex } from '@chakra-ui/react';
 
-import { GLOBAL_BORDER_RADIUS, GLOBAL_CONTENT_COLOR } from '../../pages';
+import { FONT_SIZE, GLOBAL_BORDER_RADIUS, GLOBAL_CONTENT_COLOR } from '../../pages';
 import { TituloSeccion } from './TituloSeccion';
 
 // ********************************************************************************
-const fontSize = 16;
 export interface SeccionNuevosProps { };
 export const SeccionEstadoGeneral: React.FC<SeccionNuevosProps> = () => {
     return (
@@ -14,7 +13,7 @@ export const SeccionEstadoGeneral: React.FC<SeccionNuevosProps> = () => {
                 <Flex gap={10}>
                     <Box
                         backgroundColor={GLOBAL_CONTENT_COLOR}
-                        fontSize={fontSize}
+                        fontSize={FONT_SIZE}
                         borderRadius={GLOBAL_BORDER_RADIUS}
                         flexBasis={'50%'}
                         padding={5}
@@ -25,7 +24,7 @@ export const SeccionEstadoGeneral: React.FC<SeccionNuevosProps> = () => {
                     </Box>
                     <Box
                         backgroundColor={GLOBAL_CONTENT_COLOR}
-                        fontSize={fontSize}
+                        fontSize={FONT_SIZE}
                         flexBasis={'50%'}
                         borderRadius={GLOBAL_BORDER_RADIUS}
                         padding={5}
