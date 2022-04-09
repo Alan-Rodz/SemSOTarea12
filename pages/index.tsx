@@ -83,7 +83,7 @@ const Home: NextPage = () => {
             const nuevoContenedorMostrado = contenedor.copiar();
             setContenedorMostrado(nuevoContenedorMostrado);
           }),
-          error: (err)=>{ console.log(err) },
+          error: (err) => { console.log(err) },
           complete: () => { setIsConsumiendo(false); setSueñoConsumidor(aleatorio()); }
         });
       }
@@ -150,9 +150,7 @@ const Home: NextPage = () => {
         colSpan={5}
         bg={GLOBAL_COLOR}
         borderRadius={GLOBAL_BORDER_RADIUS}>
-        <ContenedorSeccion>
-          <SeccionContenedor contenedor={contenedor} />
-        </ContenedorSeccion>
+        <SeccionContenedor contenedor={contenedor} />
       </GridItem>
     </Grid>
   );

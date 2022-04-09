@@ -14,7 +14,6 @@ export const Entrada: React.FC<Props> = ({ entrada, indice }) => {
   return (
     <>
       <Box
-        width={'width'}
         borderRadius={GLOBAL_BORDER_RADIUS}
         padding={3}
         m={3}
