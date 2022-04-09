@@ -18,7 +18,7 @@ export const GLOBAL_BG_GAP_COLOR = 'white';
 export const GLOBAL_CONTENT_COLOR = '#ffccd5';
 export const GLOBAL_BORDER_RADIUS = 5;
 export const FONT_SIZE = 16;
-export const VELOCIDAD = 1000/*ms*/;
+export const VELOCIDAD = 100/*ms*/;
 
 
 // === App =====================================================================================================================
@@ -28,66 +28,68 @@ const Home: NextPage = () => {
   // --- State --------------------------------------------------------------------
   const [contenedorMostrado, setContenedorMostrado] = useState<Contenedor<number>>(contenedor);
 
-  const [isProduciendo, setIsProduciendo] = useState<boolean>(false);
-  const [isConsumiendo, setIsConsumiendo] = useState<boolean>(false);
+  const [isProduciendo, setIsProduciendo] = useState(false);
+  const [ultimaPosicionProductor, setUltimaPosicionProductor] = useState(0);
+  const [sueñoProductor, setSueñoProductor] = useState(0);
 
-  const [producerSleep, setProducerSleep] = useState<number>(0);
-  const [consumerSleep, setConsumerSleep] = useState<number>(0);
+  const [isConsumiendo, setIsConsumiendo] = useState(false);
+  const [ultimaPosicionConsumidor, setUltimaPosicionConsumidor] = useState<string | number>(0);
+  const [sueñoConsumidor, setSueñoConsumidor] = useState(0);
 
-  // --- Handlers -----------------------------------------------------------------
 
   // --- Effects ------------------------------------------------------------------
   useEffect(() => { // Effect Productor
-    if(isProduciendo) { return/*productor produciendo*/; }
+    if (isProduciendo) { return/*productor produciendo*/; }
 
-    const interval = setInterval(()=>{
-      if(producerSleep > 0) { setProducerSleep(producerSleep => producerSleep--); return/*productor durmiendo*/; }
+    const interval = setInterval(() => {
+      if (sueñoProductor > 0) { setSueñoProductor(sueñoProductor => sueñoProductor - 1); return/*productor durmiendo*/; }
 
-      if(isProduciendo === false) {
+      if (isProduciendo === false) {
         setIsProduciendo(true);
         const prod$ = crearObservable(aleatorio());
         prod$.subscribe({
-            next: (val => {
-              contenedor.agregar(val);
-              const nuevoContenedorMostrado = contenedor.copiar();
-              setContenedorMostrado(nuevoContenedorMostrado);
-            }),
-            error: undefined,
-            complete: () => { setIsProduciendo(false); setProducerSleep(aleatorio()); }
-          });
+          next: (val => {
+            contenedor.agregar(val);
+            const nuevoContenedorMostrado = contenedor.copiar();
+            setContenedorMostrado(nuevoContenedorMostrado);
+          }),
+          error: (error) => console.log(error),
+          complete: () => { setIsProduciendo(false); setSueñoProductor(aleatorio()); }
+        });
       }
 
     }, VELOCIDAD);
 
     return () => clearInterval(interval);
-  }, [producerSleep, isProduciendo]);
+  }, [sueñoProductor, isProduciendo]);
 
 
   useEffect(() => { // Effect Consumidor
-    if(isConsumiendo) { return/*consumidor consumiendo*/; }
+    if (isConsumiendo) { return/*consumidor consumiendo*/; }
 
-    const interval = setInterval(()=>{
-      if(consumerSleep > 0) { setConsumerSleep(consumerSleep => consumerSleep--); return/*productor durmiendo*/; }
+    const interval = setInterval(() => {
+      if (sueñoConsumidor > 0) { setSueñoConsumidor(sueñoConsumidor => sueñoConsumidor - 1); return/*consumidor durmiendo*/; }
 
-      if(isConsumiendo === false) {
+      if (isConsumiendo === false) {
         setIsConsumiendo(true);
         const consume$ = crearObservable(aleatorio());
         consume$.subscribe({
-            next: (val => {
-              console.log(val)
-              // contenedor.consumir();
-              // const nuevoContenedorMostrado = contenedor.copiar();
-              // setContenedorMostrado(nuevoContenedorMostrado);
-            }),
-  //           error: undefined,
-  //           complete: () => { setIsConsumiendo(false); setConsumerSleep(aleatorio()); }
-          });
+          next: (val => {
+            const ultimaPosicionConsumida = contenedor.consumir();
+            setUltimaPosicionConsumidor(ultimaPosicionConsumida);
+            const nuevoContenedorMostrado = contenedor.copiar();
+            setContenedorMostrado(nuevoContenedorMostrado);
+          }),
+          error: (err)=>{ console.log(err) },
+          complete: () => { setIsConsumiendo(false); setSueñoConsumidor(aleatorio()); }
+        });
       }
 
     }, VELOCIDAD);
 
     return () => clearInterval(interval);
-  }, [consumerSleep, isConsumiendo]);
+  }, [sueñoConsumidor, isConsumiendo]);
+
 
   return (
     <Grid h={'100vh'} templateRows={'repeat(10, 1fr)'} templateColumns={'repeat(10, 1fr)'} backgroundColor={GLOBAL_BG_GAP_COLOR} >
@@ -131,7 +133,7 @@ const Home: NextPage = () => {
         bg={GLOBAL_COLOR}
         borderRadius={GLOBAL_BORDER_RADIUS}>
         <ContenedorSeccion>
-          <SeccionConsumidor />
+          <SeccionConsumidor isConsumiendo={isConsumiendo} ultimaPosicion={ultimaPosicionConsumidor} tiempoRestanteDurmiendo={sueñoConsumidor} />
         </ContenedorSeccion>
       </GridItem>
 

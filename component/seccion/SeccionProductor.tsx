@@ -7,6 +7,7 @@ import { TituloSeccion } from './TituloSeccion';
 export interface SeccionProductorProps { };
 
 export const SeccionProductor: React.FC<SeccionProductorProps> = () => {
+    // --- UI -----------------------------------------------------------------------
     return (
         <Box w={'100%'} h={'100%'} py={2} borderColor={'gray.300'}>
             <Flex mt={50} flexDir={'column'}>
@@ -19,7 +20,7 @@ export const SeccionProductor: React.FC<SeccionProductorProps> = () => {
                 >
                     <Center>Estado:</Center>
                     <Center>Última Posición:</Center>
-                    <Center>Tiempo Restante:</Center>
+                    <Center>Tiempo Restante Durmiendo:</Center>
                 </Box> 
             </Flex>
         </Box>

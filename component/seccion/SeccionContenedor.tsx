@@ -24,7 +24,7 @@ export const SeccionContenedor: React.FC<SeccionContenedorProps> = () => {
       </Box>
       <Flex flexDir={'column'}>
         {contenedor.arreglo.map((entrada, index) => (
-          <Entrada key={index} entrada={entrada}/>
+          <Entrada key={index} entrada={entrada} indice={index+1/*empezar desde 1 en vez de 0*/}/>
         ))}
       </Flex>
     </Box>

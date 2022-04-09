@@ -34,15 +34,15 @@ console.log('agregando')
 
   consumir() {
     if (this.indiceUltimoConsumo >= this.tamaño) { this.indiceUltimoConsumo = 0; }
-    if(!this.arreglo[this.indiceUltimoConsumo].contenido) { return  'Contenedor Vacío'; }
-console.log('consumiendo');
+    if(!this.arreglo[this.indiceUltimoConsumo].contenido) { this.indiceUltimoConsumo++; return  `Entrada ${this.indiceUltimoConsumo} Vacía`; }
+    console.log('consumiendo');
     const contenidoConsumido = this.arreglo[this.indiceUltimoConsumo].contenido;
-
+    
     this.arreglo[this.indiceUltimoConsumo].estado = 'Vacío';
     this.arreglo[this.indiceUltimoConsumo].contenido = undefined;
     this.indiceUltimoConsumo++;
     
-    return contenidoConsumido;
+    return this.indiceUltimoConsumo;
   }
 
   // ... Utilidades ...............................................................
