@@ -1,8 +1,7 @@
 import { Observable } from 'rxjs';
-import { contenedor, VELOCIDAD } from '../pages';
 
 // ********************************************************************************
-export const crearObservable = (numeroLimite: number) => {
+export const crearObservable = (numeroLimite: number, velocidad: number) => {
   const observable$ = new Observable<number>(observer => {
     let val = 0; /*closed over in closure*/
     
@@ -12,7 +11,7 @@ export const crearObservable = (numeroLimite: number) => {
       // else
       observer.next(val);
       val++;
-    }, VELOCIDAD);
+    }, velocidad);
 
     return () => clearInterval(interval);
   });

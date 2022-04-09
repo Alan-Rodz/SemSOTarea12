@@ -30,7 +30,7 @@ export const SeccionEstadoGeneral: React.FC<SeccionEstadoGeneralProps> = ({isPro
                 <Flex gap={10}>
                     <Box
                         backgroundColor={GLOBAL_CONTENT_COLOR}
-                        fontSize={FONT_SIZE}
+                        fontSize={FONT_SIZE+5}
                         borderRadius={GLOBAL_BORDER_RADIUS}
                         flexBasis={'50%'}
                         padding={5}
@@ -41,7 +41,7 @@ export const SeccionEstadoGeneral: React.FC<SeccionEstadoGeneralProps> = ({isPro
                     </Box>
                     <Box
                         backgroundColor={GLOBAL_CONTENT_COLOR}
-                        fontSize={FONT_SIZE}
+                        fontSize={FONT_SIZE+5}
                         flexBasis={'50%'}
                         borderRadius={GLOBAL_BORDER_RADIUS}
                         padding={5}

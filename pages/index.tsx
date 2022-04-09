@@ -7,6 +7,7 @@ import { SeccionEstadoGeneral } from '../component/seccion/SeccionEstadoGeneral'
 import { SeccionProductor } from '../component/seccion/SeccionProductor';
 import { SeccionConsumidor } from '../component/seccion/SeccionConsumidor';
 import { SeccionContenedor } from '../component/seccion/SeccionContenedor';
+import { SeccionDetalles } from '../component/seccion/detalles/SeccionDetalles';
 import { Contenedor } from '../class/Contenedor';
 import { crearObservable } from '../class/Observar';
 import { aleatorio } from '../util/aleatorio';
@@ -18,8 +19,6 @@ export const GLOBAL_BG_GAP_COLOR = 'white';
 export const GLOBAL_CONTENT_COLOR = '#ffccd5';
 export const GLOBAL_BORDER_RADIUS = 5;
 export const FONT_SIZE = 16;
-export const VELOCIDAD = 500/*ms*/;
-
 
 // === App =====================================================================================================================
 export const contenedor = new Contenedor<number>(20);
@@ -27,6 +26,7 @@ export const contenedor = new Contenedor<number>(20);
 const Home: NextPage = () => {
   // --- State --------------------------------------------------------------------
   const [contenedorMostrado, setContenedorMostrado] = useState<Contenedor<number>>(contenedor);
+  const [velocidad, setVelocidad] = useState(500);
 
   const [isProduciendo, setIsProduciendo] = useState(false);
   const [ultimaPosicionProductor, setUltimaPosicionProductor] = useState(0);
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
 
       if (isProduciendo === false) {
         setIsProduciendo(true);
-        const prod$ = crearObservable(aleatorio());
+        const prod$ = crearObservable(aleatorio(), velocidad);
         prod$.subscribe({
           next: (val => {
             const ultimaPosicionInsertada = contenedor.agregar(val);
@@ -60,7 +60,7 @@ const Home: NextPage = () => {
         });
       }
 
-    }, VELOCIDAD);
+    }, velocidad);
 
     return () => clearInterval(interval);
   }, [sueñoProductor, isProduciendo]);
@@ -74,7 +74,7 @@ const Home: NextPage = () => {
 
       if (isConsumiendo === false) {
         setIsConsumiendo(true);
-        const consume$ = crearObservable(aleatorio());
+        const consume$ = crearObservable(aleatorio(), velocidad);
         consume$.subscribe({
           next: (val => {
             const ultimaPosicionConsumida = contenedor.consumir();
@@ -88,14 +88,14 @@ const Home: NextPage = () => {
         });
       }
 
-    }, VELOCIDAD);
+    }, velocidad);
 
     return () => clearInterval(interval);
   }, [sueñoConsumidor, isConsumiendo]);
 
 
   return (
-    <Grid h={'100vh'} templateRows={'repeat(10, 1fr)'} templateColumns={'repeat(10, 1fr)'} backgroundColor={GLOBAL_BG_GAP_COLOR} >
+    <Grid h={'100vh'} templateRows={'repeat(10, 1fr)'} templateColumns={'repeat(10, 1fr)'} backgroundColor={GLOBAL_SECONDARY_COLOR} gap={1}>
       {/* === Estado General ============================================================================================================== */}
       <GridItem
         overflowX={'scroll'}
@@ -116,7 +116,7 @@ const Home: NextPage = () => {
         overflowY={'scroll'}
         gridAutoFlow={'column'}
         rowStart={3}
-        rowSpan={4}
+        rowSpan={3}
         colSpan={5}
         bg={GLOBAL_COLOR}
         borderRadius={GLOBAL_BORDER_RADIUS}>
@@ -130,8 +130,8 @@ const Home: NextPage = () => {
         overflowX={'scroll'}
         overflowY={'scroll'}
         gridAutoFlow={'column'}
-        rowStart={7}
-        rowSpan={4}
+        rowStart={6}
+        rowSpan={3}
         colSpan={5}
         bg={GLOBAL_COLOR}
         borderRadius={GLOBAL_BORDER_RADIUS}>
@@ -139,6 +139,22 @@ const Home: NextPage = () => {
           <SeccionConsumidor isConsumiendo={isConsumiendo} ultimaPosicion={ultimaPosicionConsumidor} tiempoRestanteDurmiendo={sueñoConsumidor} />
         </ContenedorSeccion>
       </GridItem>
+
+      {/* === Detalles ==================================================================================================================== */}
+      <GridItem
+        overflowX={'scroll'}
+        overflowY={'scroll'}
+        gridAutoFlow={'column'}
+        rowStart={9}
+        rowSpan={2}
+        colSpan={5}
+        bg={GLOBAL_COLOR}
+        borderRadius={GLOBAL_BORDER_RADIUS}>
+        <ContenedorSeccion>
+          <SeccionDetalles velocidad={velocidad} setVelocidad={setVelocidad}/>
+        </ContenedorSeccion>
+      </GridItem>
+
 
       {/* === Contenedor ================================================================================================================== */}
       <GridItem
