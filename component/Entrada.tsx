@@ -9,7 +9,6 @@ export const Entrada: React.FC<Props> = ({ entrada, indice }) => {
   // --- State --------------------------------------------------------------------
   const colorEntrada = entrada.estado === 'Vacío' ? GLOBAL_COLOR : GLOBAL_SECONDARY_COLOR;
   const colorTexto = entrada.estado === 'Vacío' ? 'black' : 'white';
-  
   // --- UI -----------------------------------------------------------------------
   return (
     <>
@@ -53,7 +52,7 @@ export const Entrada: React.FC<Props> = ({ entrada, indice }) => {
             color={colorTexto}
           >
             <Center>
-              {`Contenido: ${entrada.contenido ? entrada.contenido : 'Ninguno'}`}
+              {`Contenido: ${entrada.contenido || entrada.contenido === 0 ? entrada.contenido : 'Ninguno'}`}
             </Center>
           </Box>
         </Flex>
