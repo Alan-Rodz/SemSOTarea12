@@ -18,7 +18,7 @@ export const SeccionProductor: React.FC<SeccionProductorProps> = ({isProduciendo
                 <TituloSeccion nombreSeccion={`Productor`} />
                 <Box 
                   bgColor={GLOBAL_CONTENT_COLOR} 
-                  fontSize={FONT_SIZE}
+                  fontSize={FONT_SIZE+5}
                   padding={5}
                   mt={7}
                 >

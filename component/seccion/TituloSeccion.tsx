@@ -18,7 +18,7 @@ export const TituloSeccion: React.FC<TituloSeccionProps> = ({ nombreSeccion }) =
         bg={GLOBAL_SECONDARY_COLOR}
         borderRadius={GLOBAL_BORDER_RADIUS}
         padding={3}
-        fontSize={15}
+        fontSize={20}
         color={'white'}
       >
         {nombreSeccion}

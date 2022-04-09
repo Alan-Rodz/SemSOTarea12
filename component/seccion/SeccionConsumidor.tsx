@@ -20,7 +20,7 @@ export const SeccionConsumidor: React.FC<SeccionConsumidorProps> = ({isConsumien
                 <TituloSeccion nombreSeccion={`Consumidor`} />
                 <Box 
                   bgColor={GLOBAL_CONTENT_COLOR} 
-                  fontSize={FONT_SIZE}
+                  fontSize={FONT_SIZE+5}
                   padding={5}
                   mt={7}
                 >
