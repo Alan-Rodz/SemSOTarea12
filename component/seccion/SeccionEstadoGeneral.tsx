@@ -39,11 +39,11 @@ export const SeccionEstadoGeneral: React.FC<SeccionEstadoGeneralProps> = ({ isPr
                             <Box padding={1}>
                                 Trabajando: 
                             </Box>
-                            <Box bgColor={GLOBAL_SECONDARY_COLOR} color={'white'} borderRadius={GLOBAL_BORDER_RADIUS} padding={sueñoProductor > 0 ? 1 : 0}>
-                                {`${sueñoProductor > 0 ? ' Productor' : ''}`}
+                            <Box bgColor={GLOBAL_SECONDARY_COLOR} color={'white'} borderRadius={GLOBAL_BORDER_RADIUS} padding={isProduciendo  ? 1 : 0}>
+                                {`${isProduciendo ? ' Productor' : ''}`}
                             </Box>
-                            <Box bgColor={GLOBAL_SECONDARY_COLOR} color={'white'} borderRadius={GLOBAL_BORDER_RADIUS} padding={sueñoConsumidor > 0 ? 1 : 0}>
-                                {`${sueñoConsumidor > 0 ? ' Consumidor' : ''}`}
+                            <Box bgColor={GLOBAL_SECONDARY_COLOR} color={'white'} borderRadius={GLOBAL_BORDER_RADIUS} padding={isConsumiendo ? 1 : 0}>
+                                {`${isConsumiendo ? ' Consumidor' : ''}`}
                             </Box>
                         </Flex>
                     </Box>

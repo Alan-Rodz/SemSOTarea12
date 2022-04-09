@@ -6,7 +6,7 @@ export const crearObservable = (numeroLimite: number, velocidad: number) => {
     let val = 0; /*closed over in closure*/
     
     const interval = setInterval(() => {
-      if (val === numeroLimite) { observer.complete(); };
+      if(val === numeroLimite) { observer.complete(); };
 
       // else
       observer.next(val);

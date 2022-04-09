@@ -27,6 +27,7 @@ const Home: NextPage = () => {
   // --- State --------------------------------------------------------------------
   const [contenedorMostrado, setContenedorMostrado] = useState<Contenedor<number>>(contenedor);
   const [velocidad, setVelocidad] = useState(500);
+  const [isTerminado, setIsTerminado] = useState(false);
 
   const [isProduciendo, setIsProduciendo] = useState(false);
   const [ultimaPosicionProductor, setUltimaPosicionProductor] = useState(0);
@@ -39,12 +40,13 @@ const Home: NextPage = () => {
 
   // --- Effects ------------------------------------------------------------------
   useEffect(() => { // Effect Productor
-    if (isProduciendo) { return/*productor produciendo*/; }
+    if(isTerminado) { return/*programa terminado*/; }
+    if(isProduciendo) { return/*productor produciendo*/; }
 
     const interval = setInterval(() => {
-      if (sueñoProductor > 0) { setSueñoProductor(sueñoProductor => sueñoProductor - 1); return/*productor durmiendo*/; }
+      if(sueñoProductor > 0) { setSueñoProductor(sueñoProductor => sueñoProductor - 1); return/*productor durmiendo*/; }
 
-      if (isProduciendo === false) {
+      if(isProduciendo === false) {
         setIsProduciendo(true);
         const prod$ = crearObservable(aleatorio(), velocidad);
         prod$.subscribe({
@@ -67,12 +69,13 @@ const Home: NextPage = () => {
 
 
   useEffect(() => { // Effect Consumidor
-    if (isConsumiendo) { return/*consumidor consumiendo*/; }
+    if(isTerminado) { return/*programa terminado*/; }
+    if(isConsumiendo) { return/*consumidor consumiendo*/; }
 
     const interval = setInterval(() => {
-      if (sueñoConsumidor > 0) { setSueñoConsumidor(sueñoConsumidor => sueñoConsumidor - 1); return/*consumidor durmiendo*/; }
+      if(sueñoConsumidor > 0) { setSueñoConsumidor(sueñoConsumidor => sueñoConsumidor - 1); return/*consumidor durmiendo*/; }
 
-      if (isConsumiendo === false) {
+      if(isConsumiendo === false) {
         setIsConsumiendo(true);
         const consume$ = crearObservable(aleatorio(), velocidad);
         consume$.subscribe({
@@ -93,6 +96,17 @@ const Home: NextPage = () => {
     return () => clearInterval(interval);
   }, [sueñoConsumidor, isConsumiendo]);
 
+  useEffect(() => {
+    const handleUserKeyPress = (e: KeyboardEvent) => {
+      if(e.key==='Escape') {
+        e.preventDefault();
+        setIsTerminado(true);
+      }
+    }
+    document.addEventListener('keydown', handleUserKeyPress);
+
+    return () => { document.removeEventListener('keydown', handleUserKeyPress); };
+  }, []);
 
   return (
     <Grid h={'100vh'} templateRows={'repeat(10, 1fr)'} templateColumns={'repeat(10, 1fr)'} backgroundColor={GLOBAL_SECONDARY_COLOR} gap={1}>
