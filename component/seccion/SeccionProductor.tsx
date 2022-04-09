@@ -4,9 +4,13 @@ import { GLOBAL_CONTENT_COLOR, GLOBAL_BORDER_RADIUS, FONT_SIZE } from '../../pag
 import { TituloSeccion } from './TituloSeccion';
 
 // ********************************************************************************
-export interface SeccionProductorProps { };
+export interface SeccionProductorProps { 
+    isProduciendo: boolean;
+    ultimaPosicion: string | number;
+    tiempoRestanteDurmiendo: number;
+};
 
-export const SeccionProductor: React.FC<SeccionProductorProps> = () => {
+export const SeccionProductor: React.FC<SeccionProductorProps> = ({isProduciendo, ultimaPosicion, tiempoRestanteDurmiendo}) => {
     // --- UI -----------------------------------------------------------------------
     return (
         <Box w={'100%'} h={'100%'} py={2} borderColor={'gray.300'}>
@@ -18,9 +22,9 @@ export const SeccionProductor: React.FC<SeccionProductorProps> = () => {
                   padding={5}
                   mt={7}
                 >
-                    <Center>Estado:</Center>
-                    <Center>Última Posición:</Center>
-                    <Center>Tiempo Restante Durmiendo:</Center>
+                    <Center>{`Estado: ${isProduciendo ? 'Trabajando' : 'Durmiendo' }`}</Center>
+                    <Center>{`Última Posición Producida: ${ultimaPosicion}`}</Center>
+                    <Center>{`Tiempo Restante Durmiendo: ${tiempoRestanteDurmiendo}`}</Center>
                 </Box> 
             </Flex>
         </Box>

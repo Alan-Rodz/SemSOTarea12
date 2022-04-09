@@ -49,7 +49,9 @@ const Home: NextPage = () => {
         const prod$ = crearObservable(aleatorio());
         prod$.subscribe({
           next: (val => {
-            contenedor.agregar(val);
+            const ultimaPosicionInsertada = contenedor.agregar(val);
+            setUltimaPosicionProductor(ultimaPosicionInsertada);
+
             const nuevoContenedorMostrado = contenedor.copiar();
             setContenedorMostrado(nuevoContenedorMostrado);
           }),
@@ -77,6 +79,7 @@ const Home: NextPage = () => {
           next: (val => {
             const ultimaPosicionConsumida = contenedor.consumir();
             setUltimaPosicionConsumidor(ultimaPosicionConsumida);
+
             const nuevoContenedorMostrado = contenedor.copiar();
             setContenedorMostrado(nuevoContenedorMostrado);
           }),
@@ -118,7 +121,7 @@ const Home: NextPage = () => {
         bg={GLOBAL_COLOR}
         borderRadius={GLOBAL_BORDER_RADIUS}>
         <ContenedorSeccion>
-          <SeccionProductor />
+          <SeccionProductor isProduciendo={isProduciendo} ultimaPosicion={ultimaPosicionProductor} tiempoRestanteDurmiendo={sueñoProductor} />
         </ContenedorSeccion>
       </GridItem>
 

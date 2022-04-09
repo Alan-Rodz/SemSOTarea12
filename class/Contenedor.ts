@@ -25,18 +25,16 @@ export class Contenedor<T> {
   // ... Funcionamiento ...........................................................
   agregar(elem: T) {
     if (this.indiceUltimaInsercion >= this.tamaño) { this.indiceUltimaInsercion = 0; }
-console.log('agregando')
     this.arreglo[this.indiceUltimaInsercion].estado = 'Ocupado';
     this.arreglo[this.indiceUltimaInsercion].contenido = elem;
     this.indiceUltimaInsercion++;
 
+    return this.indiceUltimaInsercion;
   }
 
   consumir() {
     if (this.indiceUltimoConsumo >= this.tamaño) { this.indiceUltimoConsumo = 0; }
     if(!this.arreglo[this.indiceUltimoConsumo].contenido) { this.indiceUltimoConsumo++; return  `Entrada ${this.indiceUltimoConsumo} Vacía`; }
-    console.log('consumiendo');
-    const contenidoConsumido = this.arreglo[this.indiceUltimoConsumo].contenido;
     
     this.arreglo[this.indiceUltimoConsumo].estado = 'Vacío';
     this.arreglo[this.indiceUltimoConsumo].contenido = undefined;
