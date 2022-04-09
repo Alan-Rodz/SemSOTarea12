@@ -1,12 +1,8 @@
 
 // ********************************************************************************
 // --- Tipos ----------------------------------------------------------------------
-type Estado = 'Ocupado'|'Vacío';
-
-interface EntradaContenedor<K> {
-  estado: Estado;
-  contenido: K | undefined;
-}
+export type Estado = 'Ocupado'|'Vacío';
+export interface EntradaContenedor<K> { estado: Estado; contenido: K | undefined }
 
 // --- Clase ----------------------------------------------------------------------
 export class Contenedor<T> { 
@@ -23,9 +19,7 @@ export class Contenedor<T> {
     this.tamaño = size;
     this.arreglo = [];
 
-    for (let i = 0; i < this.tamaño; i++) {
-      this.arreglo.push({estado:'Vacío', contenido: undefined})
-    }
+    for (let i = 0; i < this.tamaño; i++) { this.arreglo.push({estado:'Vacío', contenido: undefined}); }
   }
 
   // ... Funcionamiento ...........................................................
@@ -52,12 +46,6 @@ console.log('consumiendo');
   }
 
   // ... Utilidades ...............................................................
-  print() {
-    console.log(this.arreglo);
-  }
-
-  copiar() {
-    const copia = {...this};
-    return copia;
-  }
+  print() { console.log(this.arreglo); }
+  copiar() { const copia = {...this}; return copia; }
 }
