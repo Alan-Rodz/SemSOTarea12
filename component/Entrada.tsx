@@ -53,7 +53,7 @@ export const Entrada: React.FC<Props> = ({ entrada, indice }) => {
             color={colorTexto}
           >
             <Center>
-              {`Contenido: ${entrada.contenido}`}
+              {`Contenido: ${entrada.contenido ? entrada.contenido : 'Ninguno'}`}
             </Center>
           </Box>
         </Flex>
