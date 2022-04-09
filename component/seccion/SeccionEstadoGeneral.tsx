@@ -6,11 +6,11 @@ import { FONT_SIZE, GLOBAL_BORDER_RADIUS, GLOBAL_CONTENT_COLOR, GLOBAL_SECONDARY
 export interface SeccionEstadoGeneralProps {
     isProduciendo: boolean;
     isConsumiendo: boolean;
-    
+
     sueñoProductor: number;
     sueñoConsumidor: number;
 };
-export const SeccionEstadoGeneral: React.FC<SeccionEstadoGeneralProps> = ({isProduciendo, isConsumiendo, sueñoProductor, sueñoConsumidor}) => {
+export const SeccionEstadoGeneral: React.FC<SeccionEstadoGeneralProps> = ({ isProduciendo, isConsumiendo, sueñoProductor, sueñoConsumidor }) => {
     // --- State --------------------------------------------------------------------
 
     return (
@@ -20,7 +20,7 @@ export const SeccionEstadoGeneral: React.FC<SeccionEstadoGeneralProps> = ({isPro
                     bg={GLOBAL_SECONDARY_COLOR}
                     borderRadius={GLOBAL_BORDER_RADIUS}
                     padding={3}
-                    fontSize={FONT_SIZE+5}
+                    fontSize={FONT_SIZE + 5}
                     color={'white'}
                 >
                     <Center>
@@ -28,27 +28,43 @@ export const SeccionEstadoGeneral: React.FC<SeccionEstadoGeneralProps> = ({isPro
                     </Center>
                 </Box>
                 <Flex gap={10}>
-                    <Box
+                <Box
                         backgroundColor={GLOBAL_CONTENT_COLOR}
-                        fontSize={FONT_SIZE+5}
-                        borderRadius={GLOBAL_BORDER_RADIUS}
+                        fontSize={FONT_SIZE + 5}
                         flexBasis={'50%'}
+                        borderRadius={GLOBAL_BORDER_RADIUS}
                         padding={5}
                     >
-                        <Center>
-                            {`Trabajando: ${isProduciendo ? 'Productor' : ''} ${isConsumiendo ? 'Consumidor' : ''}`}
-                        </Center>
+                        <Flex padding={3} gap={1}>
+                            <Box padding={1}>
+                                Trabajando: 
+                            </Box>
+                            <Box bgColor={GLOBAL_SECONDARY_COLOR} color={'white'} borderRadius={GLOBAL_BORDER_RADIUS} padding={sueñoProductor > 0 ? 1 : 0}>
+                                {`${sueñoProductor > 0 ? ' Productor' : ''}`}
+                            </Box>
+                            <Box bgColor={GLOBAL_SECONDARY_COLOR} color={'white'} borderRadius={GLOBAL_BORDER_RADIUS} padding={sueñoConsumidor > 0 ? 1 : 0}>
+                                {`${sueñoConsumidor > 0 ? ' Consumidor' : ''}`}
+                            </Box>
+                        </Flex>
                     </Box>
                     <Box
                         backgroundColor={GLOBAL_CONTENT_COLOR}
-                        fontSize={FONT_SIZE+5}
+                        fontSize={FONT_SIZE + 5}
                         flexBasis={'50%'}
                         borderRadius={GLOBAL_BORDER_RADIUS}
                         padding={5}
-                        >
-                        <Center>
-                            {`Durmiendo: ${sueñoProductor > 0 ? 'Productor' : ''} ${sueñoConsumidor > 0 ? 'Consumidor' : ''}`}
-                        </Center>
+                    >
+                        <Flex padding={3} gap={1}>
+                            <Box padding={1}>
+                                Durmiendo: 
+                            </Box>
+                            <Box bgColor={GLOBAL_SECONDARY_COLOR} color={'white'} borderRadius={GLOBAL_BORDER_RADIUS} padding={sueñoProductor > 0 ? 1 : 0}>
+                                {`${sueñoProductor > 0 ? ' Productor' : ''}`}
+                            </Box>
+                            <Box bgColor={GLOBAL_SECONDARY_COLOR} color={'white'} borderRadius={GLOBAL_BORDER_RADIUS} padding={sueñoConsumidor > 0 ? 1 : 0}>
+                                {`${sueñoConsumidor > 0 ? ' Consumidor' : ''}`}
+                            </Box>
+                        </Flex>
                     </Box>
                 </Flex>
             </Flex>
