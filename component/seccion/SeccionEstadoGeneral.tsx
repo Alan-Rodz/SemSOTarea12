@@ -1,11 +1,18 @@
 import { Box, Center, Flex } from '@chakra-ui/react';
 
 import { FONT_SIZE, GLOBAL_BORDER_RADIUS, GLOBAL_CONTENT_COLOR, GLOBAL_SECONDARY_COLOR } from '../../pages';
-import { TituloSeccion } from './TituloSeccion';
 
 // ********************************************************************************
-export interface SeccionNuevosProps { };
-export const SeccionEstadoGeneral: React.FC<SeccionNuevosProps> = () => {
+export interface SeccionEstadoGeneralProps {
+    isProduciendo: boolean;
+    isConsumiendo: boolean;
+    
+    sueñoProductor: number;
+    sueñoConsumidor: number;
+};
+export const SeccionEstadoGeneral: React.FC<SeccionEstadoGeneralProps> = ({isProduciendo, isConsumiendo, sueñoProductor, sueñoConsumidor}) => {
+    // --- State --------------------------------------------------------------------
+
     return (
         <Box w={'100%'} h={'100%'} py={1} borderColor={'gray.300'}>
             <Flex flexDir={'column'} gap={2}>
@@ -29,7 +36,7 @@ export const SeccionEstadoGeneral: React.FC<SeccionNuevosProps> = () => {
                         padding={5}
                     >
                         <Center>
-                            Trabajando:
+                            {`Trabajando: ${isProduciendo ? 'Productor' : ''} ${isConsumiendo ? 'Consumidor' : ''}`}
                         </Center>
                     </Box>
                     <Box
@@ -38,9 +45,9 @@ export const SeccionEstadoGeneral: React.FC<SeccionNuevosProps> = () => {
                         flexBasis={'50%'}
                         borderRadius={GLOBAL_BORDER_RADIUS}
                         padding={5}
-                    >
+                        >
                         <Center>
-                            Durmiendo:
+                            {`Durmiendo: ${sueñoProductor > 0 ? 'Productor' : ''} ${sueñoConsumidor > 0 ? 'Consumidor' : ''}`}
                         </Center>
                     </Box>
                 </Flex>

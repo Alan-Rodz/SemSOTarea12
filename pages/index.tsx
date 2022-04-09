@@ -18,7 +18,7 @@ export const GLOBAL_BG_GAP_COLOR = 'white';
 export const GLOBAL_CONTENT_COLOR = '#ffccd5';
 export const GLOBAL_BORDER_RADIUS = 5;
 export const FONT_SIZE = 16;
-export const VELOCIDAD = 100/*ms*/;
+export const VELOCIDAD = 500/*ms*/;
 
 
 // === App =====================================================================================================================
@@ -106,7 +106,7 @@ const Home: NextPage = () => {
         bg={GLOBAL_COLOR}
         borderRadius={GLOBAL_BORDER_RADIUS}>
         <ContenedorSeccion>
-          <SeccionEstadoGeneral />
+          <SeccionEstadoGeneral isProduciendo={isProduciendo} isConsumiendo={isConsumiendo} sueñoProductor={sueñoProductor} sueñoConsumidor={sueñoConsumidor} />
         </ContenedorSeccion>
       </GridItem>
 
